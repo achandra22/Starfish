@@ -174,9 +174,13 @@ while running:
     pygame.display.flip()
 
 
-font = pygame.font.Font("freesansbold.ttf", 100)
+font = pygame.font.Font("freesansbold.ttf", 70)
 
 hi = True
+
+starfish_happy = pygame.image.load("starfish_end.png")
+#starfish_sad = 
+middle = (WIDTH/2, HEIGHT/2)
 
 while hi:
     
@@ -189,15 +193,17 @@ while hi:
     if end_state:
         screen.fill(BLACK)
         screen.blit(background, bg_rect)
-        text = font.render("Hoorah!", True, (255, 255, 255))
-        screen.blit(text, (WIDTH/2, HEIGHT/2))
+        screen.blit(starfish_happy, (WIDTH/2- 128, HEIGHT/2-128))
+        text = font.render("You're a star!", True, (255, 255, 255))
+        screen.blit(text, (WIDTH/2-35, 0))
         
     elif end_state == False :
         screen.fill(BLACK)
         screen.blit(background, bg_rect)
+        screen.blit(starfish_happy,(WIDTH/2- 128, HEIGHT/2-128))
         
-        text = font.render(':(', True, (255, 255, 255))
-        screen.blit(text, (WIDTH/2, HEIGHT/2))
+        text = font.render('', True, (255, 255, 255))
+        screen.blit(text, middle)
 
 
     pygame.display.flip()
