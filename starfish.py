@@ -70,17 +70,16 @@ def create_number(n):
         all_sprites.add(number)
         numbers.add(number)
 
-
 create_number(5)
 
 ###
 
 
-lives = 3
 # # Display the goal number
 # font = pygame.font.SysFont("comicsansms", 72)
 # text = font.render(str(goal_num), True, (0, 0, 0))
 # screen.blit(text, (0, 0))
+
 
 # Game Loop
 running = True
@@ -90,18 +89,21 @@ while running:
     screen.blit(background, bg_rect)
     ######## Process input (events)
 
-    # When they press space to compare
     for event in pygame.event.get():
+        # check for closing window
         if event.type == pygame.QUIT:
             running = False
-
+            
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-            if int(evaluate_equation(player.current)) == goal_num:
-                end_state = True
-                running = False
-            else:
-                lives-= 1
-                player.current = []
+           print(1)
+           if int(evaluate_equation(player.current)) == goal_num:
+               # win
+               end_state = True
+               running = False
+           else:
+               # lost life
+               lives -= 1
+               player.current = []
 
 
     if lives == 0:
@@ -158,12 +160,13 @@ while running:
 
     pygame.display.flip()
 
+
+font = pygame.font.Font("freesansbold.ttf", 32)
+
     
 if end_state:
     screen.fill(BLACK)
     screen.blit(background, bg_rect)
-
-    font = pygame.font.Font("freesansbold.ttf", 32)
     text = font.render("Winner!", True, (0, 0, 0))
     textRect = text.get_rect()
     screen.blit(text, textRect)
@@ -172,10 +175,11 @@ elif end_state == False :
     screen.fill(BLACK)
     screen.blit(background, bg_rect)
     
-    font = pygame.font.Font('freesansbold.ttf', 32)
     text = font.render('Loser!', True, (0, 0, 0))
     textRect = text.get_rect()
     screen.blit(text, textRect)
+
+
     
 
 
