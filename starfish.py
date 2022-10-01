@@ -75,7 +75,7 @@ create_number(5)
 
 ###
 
-goal_num = 1#random.randrange(2, 40)
+
 lives = 3
 # # Display the goal number
 # font = pygame.font.SysFont("comicsansms", 72)
@@ -96,7 +96,7 @@ while running:
             running = False
 
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-            if evaluate_equation(player.current) == goal_num:
+            if int(evaluate_equation(player.current)) == goal_num:
                 end_state = True
                 running = False
             else:
