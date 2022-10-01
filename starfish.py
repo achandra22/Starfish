@@ -18,6 +18,9 @@ BLACK = (0, 0, 0)
 # initialize pygame and create window
 pygame.init()
 pygame.mixer.init()  # for sound
+pygame.mixer.music.load("game_music.mp3")
+pygame.mixer.music.play(-1)
+
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("My Game")
 clock = pygame.time.Clock()
