@@ -29,7 +29,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.center = (WIDTH / 2, HEIGHT / 2)
 
         # speeds
-        self.speed = 5
+        self.speed = 5 #start at 5
 
     def update(self):
 
