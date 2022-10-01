@@ -75,23 +75,11 @@ create_number(5)
 
 ###
 
-<<<<<<< HEAD
-lives = 3
-
-
-
-=======
-
->>>>>>> 16174ab68572267dc720301fe69796df18eeaf13
 # # Display the goal number
 # font = pygame.font.SysFont("comicsansms", 72)
 # text = font.render(str(goal_num), True, (0, 0, 0))
 # screen.blit(text, (0, 0))
-<<<<<<< HEAD
-=======
 
-
->>>>>>> 16174ab68572267dc720301fe69796df18eeaf13
 # Game Loop
 running = True
 while running:
@@ -106,7 +94,6 @@ while running:
             running = False
             
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-           print(1)
            if int(evaluate_equation(player.current)) == goal_num:
                # win
                end_state = True
@@ -114,8 +101,7 @@ while running:
            else:
                # lost life
                lives -= 1
-<<<<<<< HEAD
-               print("lost_a_life")
+        
 
     # When they press space to compare
     for event in pygame.event.get():
@@ -123,15 +109,12 @@ while running:
             running = False
 
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-            if evaluate_equation(player.current) == int(goal_num):
+            if int(evaluate_equation(player.current)) == goal_num:
                 end_state = True
                 running = False
             else:
                 lives-= 1
                 player.current = []
-=======
-               player.current = []
->>>>>>> 16174ab68572267dc720301fe69796df18eeaf13
 
 
     if lives == 0:
@@ -191,31 +174,13 @@ while running:
 
 font = pygame.font.Font("freesansbold.ttf", 32)
 
-<<<<<<< HEAD
 hi = True
 
 while hi:
     
     if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
            hi = False
-=======
     
-if end_state:
-    screen.fill(BLACK)
-    screen.blit(background, bg_rect)
-    text = font.render("Winner!", True, (0, 0, 0))
-    textRect = text.get_rect()
-    screen.blit(text, textRect)
-    
-elif end_state == False :
-    screen.fill(BLACK)
-    screen.blit(background, bg_rect)
-    
-    text = font.render('Loser!', True, (0, 0, 0))
-    textRect = text.get_rect()
-    screen.blit(text, textRect)
->>>>>>> 16174ab68572267dc720301fe69796df18eeaf13
-
     if end_state:
         screen.fill(BLACK)
         screen.blit(background, bg_rect)
@@ -230,20 +195,9 @@ elif end_state == False :
         text = font.render('Loser!', True, (0, 0, 0))
         textRect = text.get_rect()
         screen.blit(text, textRect)
-        
+
+
     pygame.display.flip()
 
-<<<<<<< HEAD
-=======
-    
 
-
-else:
-    screen.fill(BLACK)
-    screen.blit(background, bg_rect)
-    all_signs.draw(screen)
-    all_sprites.draw(screen)
-
-
->>>>>>> 16174ab68572267dc720301fe69796df18eeaf13
 pygame.quit()

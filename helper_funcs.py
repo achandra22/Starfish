@@ -6,7 +6,7 @@ def evaluate_equation(equation_list):
     If valid, return None.
     """
     if len(equation_list) == 0:
-        return None
+        return 0
     elif len(equation_list) == 1:
         return equation_list[0]
 
