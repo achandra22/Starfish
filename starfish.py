@@ -6,6 +6,8 @@ Created on Sat Oct  1 08:15:04 2022
 """
 
 import pygame
+
+import arithmatics_class
 from objects import Player, WIDTH, HEIGHT
 
 # import objects
@@ -35,6 +37,15 @@ all_sprites = pygame.sprite.Group()
 player = Player()
 all_sprites.add(player)
 
+for i in range(5):
+    number = objects.numbers()
+    all_sprites.add(number)
+
+# all_signs = pygame.sprite.Group()
+# sign = arithmatics_class.Arithmatics("plus", 100, 300, "plus.png")
+
+#all_signs.add(sign)
+
 # Game Loop
 running = True
 while running:
@@ -58,6 +69,10 @@ while running:
     screen.blit(background, bg_rect)
     all_sprites.draw(screen)
 
+    # all_signs.draw(screen)
     pygame.display.flip()
 
+    #testtttting
+    
 pygame.quit()
+
