@@ -81,7 +81,12 @@ while running:
 
     if hits1 := pygame.sprite.spritecollide(player, numbers, True):
         for num in hits1:
-            player.current.append(num.val)
+            if (
+                len(player.current) == 0
+                or len(player.current) > 0
+                and not player.current[-1].isdigit()
+            ):
+                player.current.append(num.val)
 
     # keeps 5 fish on screen at all times
     if len(numbers) < 5:
@@ -89,7 +94,11 @@ while running:
 
     if hits2 := pygame.sprite.spritecollide(player, all_signs, False):
         for hit in hits2:
-            player.current.append(hit.sign)
+            if len(player.current) > 0 and player.current[-1] not in ["-", "+"]:
+                player.current.append(hit.sign)
+
+    equation.set_equation(" ".join(player.current))
+    # print(equation.get_equation())
 
     ######## Render (draw)
 
