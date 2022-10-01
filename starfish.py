@@ -62,7 +62,7 @@ def create_number(n):
 
 create_number(5)
 
-### 
+###
 
 goal_num = random.randrange(3, 50)
 
@@ -81,18 +81,16 @@ while running:
 
     # When they press space to compare
     for event in pygame.event.get():
-      if event.type == pygame.KEYDOWN:
-          if event.key == pygame.K_SPACE:
-              ### compare their current val to goal_num
-              pass
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                ### compare their current val to goal_num
+                pass
 
     ######## Update
 
     all_sprites.update()
 
     # hits between player and numbers
-    _hits1 = pygame.sprite.spritecollide(player, numbers, True)
-    
     if hits1 := pygame.sprite.spritecollide(player, numbers, True):
         for num in hits1:
             if (
@@ -105,17 +103,14 @@ while running:
     # keeps 5 fish on screen at all times
     if len(numbers) < 5:
         create_number(5 - len(numbers))
-        
-    # hits between the arithmetic signs and player
-    _hits2 = pygame.sprite.spritecollide(player, all_signs, False)
 
+    # hits between the arithmetic signs and player
     if hits2 := pygame.sprite.spritecollide(player, all_signs, False):
         for hit in hits2:
             if len(player.current) > 0 and player.current[-1] not in ["-", "+"]:
                 player.current.append(hit.sign)
 
     equation.set_equation(" ".join(player.current))
-    # print(equation.get_equation())
 
     ######## Render (draw)
 
