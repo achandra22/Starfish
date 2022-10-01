@@ -12,6 +12,7 @@ import random
 import arithmatics_class, numbers_class
 from objects import Player, WIDTH, HEIGHT
 from equations_class import Equation
+from helper_funcs import evaluate_equation
 
 # import objects
 FPS = 30  # frames per second
@@ -25,7 +26,7 @@ pygame.mixer.music.load("game_music.mp3")
 pygame.mixer.music.play(-1)
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("My Game")
+pygame.display.set_caption("Starfish")
 clock = pygame.time.Clock()
 
 ### bg
@@ -62,10 +63,10 @@ def create_number(n):
 
 create_number(5)
 
+###
 
-### LIVESSSS
-
-goal_num = random.randrange(3, 50)
+goal_num = random.randrange(2, 40)
+lives = 3
 
 # Game Loop
 running = True
@@ -82,32 +83,42 @@ while running:
 
     # When they press space to compare
     for event in pygame.event.get():
-      if event.type == pygame.KEYDOWN:
-          if event.key == pygame.K_SPACE:
-              ### compare their current val to goal_num
-              pass
 
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+            if evaluate_equation(player.current) == goal_num:
+                print("you_win")
+                end_state = True
+            else:
+                print("lost_a_life")
+
+    if lives == 0:
+        running = False
+        end_state = False
     ######## Update
 
     all_sprites.update()
 
     # hits between player and numbers
-    _hits1 = pygame.sprite.spritecollide(player, numbers, True)
-    
     if hits1 := pygame.sprite.spritecollide(player, numbers, True):
         for num in hits1:
-            player.current.append(num.val)
+            if (
+                len(player.current) == 0
+                or len(player.current) > 0
+                and not player.current[-1].isdigit()
+            ):
+                player.current.append(num.val)
 
     # keeps 5 fish on screen at all times
     if len(numbers) < 5:
         create_number(5 - len(numbers))
-        
-    # hits between the arithmetic signs and player
-    _hits2 = pygame.sprite.spritecollide(player, all_signs, False)
 
+    # hits between the arithmetic signs and player
     if hits2 := pygame.sprite.spritecollide(player, all_signs, False):
         for hit in hits2:
-            player.current.append(hit.sign)
+            if len(player.current) > 0 and player.current[-1] not in ["-", "+"]:
+                player.current.append(hit.sign)
+
+    equation.set_equation(" ".join(player.current))
 
     ######## Render (draw)
 
