@@ -12,8 +12,14 @@ class Equation(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = 0
         self.rect.y = 0
-        self.equation = equation_string
+        self.equation = ""
         self.font = pygame.font.SysFont("comicsansms", 72)
+        self.text = self.font.render(self.equation, True, (255, 255, 255))
+        self.image.blit(self.text, (0, 0))
+
+    def update(self):
+        self.image.fill((0, 0, 0))
+        self.image.set_colorkey((0, 0, 0))
         self.text = self.font.render(self.equation, True, (255, 255, 255))
         self.image.blit(self.text, (0, 0))
 
