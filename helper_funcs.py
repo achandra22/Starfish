@@ -10,8 +10,8 @@ def evaluate_equation(equation_list):
         new_list = new_list[:-1]
     if equation_list[0] in {"-", "+"}:
         new_list = new_list[1:]
-    signs = {"+", "-"}
 
+    signs = {"+", "-"}
 
     current_value = int(new_list[0])
     current_op = "+" #dummy for now
@@ -30,10 +30,11 @@ def evaluate_equation(equation_list):
             elif current_op == "-":
                 current_value -= int(new_list[i])
     
-    return current_value
+    return str(current_value)
 
 
 # print(evaluate_equation(["1", "+", "2"]))
 # print(evaluate_equation(["-","1", "+", "2"]))
 # print(evaluate_equation(["-","1", "+", "2"]))
+# print(evaluate_equation(["1", "-", "2"]))
 

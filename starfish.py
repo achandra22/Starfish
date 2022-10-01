@@ -7,6 +7,7 @@ Created on Sat Oct  1 08:15:04 2022
 
 # from curses.textpad import rectangle
 import pygame
+import random
 
 import arithmatics_class, numbers_class
 from objects import Player, WIDTH, HEIGHT
@@ -48,7 +49,6 @@ all_signs.add(sign_plus)
 sign_sub = arithmatics_class.Arithmatics("-", 550, 650, "minus.png")
 all_signs.add(sign_sub)
 
-
 numbers = pygame.sprite.Group()
 
 
@@ -61,6 +61,10 @@ def create_number(n):
 
 
 create_number(5)
+
+### 
+
+goal_num = random.randrange(3, 50)
 
 # Game Loop
 running = True
@@ -75,10 +79,20 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
+    # When they press space to compare
+    for event in pygame.event.get():
+      if event.type == pygame.KEYDOWN:
+          if event.key == pygame.K_SPACE:
+              ### compare their current val to goal_num
+              pass
+
     ######## Update
 
     all_sprites.update()
 
+    # hits between player and numbers
+    _hits1 = pygame.sprite.spritecollide(player, numbers, True)
+    
     if hits1 := pygame.sprite.spritecollide(player, numbers, True):
         for num in hits1:
             if (
@@ -91,6 +105,9 @@ while running:
     # keeps 5 fish on screen at all times
     if len(numbers) < 5:
         create_number(5 - len(numbers))
+        
+    # hits between the arithmetic signs and player
+    _hits2 = pygame.sprite.spritecollide(player, all_signs, False)
 
     if hits2 := pygame.sprite.spritecollide(player, all_signs, False):
         for hit in hits2:
