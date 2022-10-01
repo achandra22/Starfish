@@ -35,6 +35,12 @@ class Player(pygame.sprite.Sprite):
 
         self.current = []
         
+        self.sound = pygame.mixer.Sound('pop.wav')
+
+        
+    def Sound(self):
+        self.sound.play()
+        
     def update(self):
 
         # updating position

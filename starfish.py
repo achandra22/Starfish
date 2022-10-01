@@ -21,6 +21,7 @@ FPS = 30  # frames per second
 
 BLACK = (0, 0, 0)
 
+
 # initialize pygame and create window
 pygame.init()
 pygame.mixer.init()  # for sound
@@ -74,12 +75,10 @@ create_number(5)
 
 ###
 
-
 # # Display the goal number
 # font = pygame.font.SysFont("comicsansms", 72)
 # text = font.render(str(goal_num), True, (0, 0, 0))
 # screen.blit(text, (0, 0))
-
 
 # Game Loop
 running = True
@@ -95,7 +94,6 @@ while running:
             running = False
             
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-           print(1)
            if int(evaluate_equation(player.current)) == goal_num:
                # win
                end_state = True
@@ -104,6 +102,20 @@ while running:
                # lost life
                lives -= 1
                player.current = []
+        
+
+    # When they press space to compare
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+            if int(evaluate_equation(player.current)) == goal_num:
+                end_state = True
+                running = False
+            else:
+                lives-= 1
+                player.current = []
 
 
     if lives == 0:
@@ -125,6 +137,7 @@ while running:
 
     # hits between player and numbers
     if hits1 := pygame.sprite.spritecollide(player, numbers, True):
+        player.Sound()
         for num in hits1:
             if (
                 len(player.current) == 0
@@ -161,33 +174,33 @@ while running:
     pygame.display.flip()
 
 
-font = pygame.font.Font("freesansbold.ttf", 32)
+font = pygame.font.Font("freesansbold.ttf", 100)
 
+hi = True
+
+while hi:
     
-if end_state:
-    screen.fill(BLACK)
-    screen.blit(background, bg_rect)
-    text = font.render("Winner!", True, (0, 0, 0))
-    textRect = text.get_rect()
-    screen.blit(text, textRect)
+    for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+               hi = False
+        if event.type == pygame.QUIT:
+                hi = False
     
-elif end_state == False :
-    screen.fill(BLACK)
-    screen.blit(background, bg_rect)
-    
-    text = font.render('Loser!', True, (0, 0, 0))
-    textRect = text.get_rect()
-    screen.blit(text, textRect)
+    if end_state:
+        screen.fill(BLACK)
+        screen.blit(background, bg_rect)
+        text = font.render("Hoorah!", True, (255, 255, 255))
+        screen.blit(text, (WIDTH/2, HEIGHT/2))
+        
+    elif end_state == False :
+        screen.fill(BLACK)
+        screen.blit(background, bg_rect)
+        
+        text = font.render(':(', True, (255, 255, 255))
+        screen.blit(text, (WIDTH/2, HEIGHT/2))
 
 
-    
-
-
-else:
-    screen.fill(BLACK)
-    screen.blit(background, bg_rect)
-    all_signs.draw(screen)
-    all_sprites.draw(screen)
+    pygame.display.flip()
 
 
 pygame.quit()
