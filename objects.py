@@ -21,7 +21,9 @@ class Player(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         self.image = pygame.image.load("starfish.png").convert()
+        self.image = pygame.transform.scale(self.image, (64,64))
         self.image.set_colorkey(BLACK)
+
 
         self.rect = self.image.get_rect()
 

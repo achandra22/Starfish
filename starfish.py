@@ -21,6 +21,10 @@ FPS = 30  # frames per second
 
 BLACK = (0, 0, 0)
 
+garbage = pygame.image.load("garbage.png")
+pygame.display.set_icon(garbage)
+
+
 
 # initialize pygame and create window
 pygame.init()
@@ -128,8 +132,6 @@ while running:
     for i in range(lives):
         all_lives.add(LivesClass(current_x, "heart.png"))
         current_x -= 80
-
-
         
     ######## Update
 
