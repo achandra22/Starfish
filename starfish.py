@@ -32,6 +32,8 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Starfish")
 clock = pygame.time.Clock()
 
+shoot_sound = pygame.mixer.Sound('.wav'))
+
 ### bg
 
 background = pygame.image.load("bg.jpg")
@@ -178,8 +180,11 @@ hi = True
 
 while hi:
     
-    if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-           hi = False
+    for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+               hi = False
+        if event.type == pygame.QUIT:
+                hi = False
     
     if end_state:
         screen.fill(BLACK)
