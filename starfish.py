@@ -39,9 +39,9 @@ player = Player()
 all_sprites.add(player)
 
 all_signs = pygame.sprite.Group()
-sign_plus = arithmatics_class.Arithmatics("+", 100, 650, "plus.png")
+sign_plus = arithmatics_class.Arithmatics("+", 450, 650, "plus.png")
 all_signs.add(sign_plus)
-sign_sub = arithmatics_class.Arithmatics("-", 200, 650, "minus.png")
+sign_sub = arithmatics_class.Arithmatics("-", 550, 650, "minus.png")
 all_signs.add(sign_sub)
 
 
@@ -51,9 +51,6 @@ for i in range(5):
     all_sprites.add(number)
     numbers.add(number)
 
-all_signs = pygame.sprite.Group()
-sign = arithmatics_class.Arithmatics("+", 100, 300, "plus.png")
-all_signs.add(sign)
 
 # Game Loop
 running = True
