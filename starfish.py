@@ -7,7 +7,7 @@ Created on Sat Oct  1 08:15:04 2022
 
 import pygame
 
-import arithmatics_class
+import arithmatics_class, numbers_class
 from objects import Player, WIDTH, HEIGHT
 from equations_class import Equation
 
@@ -38,17 +38,18 @@ all_sprites = pygame.sprite.Group()
 player = Player()
 all_sprites.add(player)
 
+numbers = pygame.sprite.Group()
 for i in range(5):
-    number = objects.numbers()
+    number = numbers_class.numbers()
     all_sprites.add(number)
+    numbers.add(number)
 
 equation = Equation()
 all_sprites.add(equation)
 
-# all_signs = pygame.sprite.Group()
-# sign = arithmatics_class.Arithmatics("plus", 100, 300, "plus.png")
-
-# all_signs.add(sign)
+all_signs = pygame.sprite.Group()
+sign = arithmatics_class.Arithmatics("+", 100, 300, "plus.png")
+all_signs.add(sign)
 
 # Game Loop
 running = True
@@ -66,6 +67,14 @@ while running:
     ######## Update
 
     all_sprites.update()
+
+    hits = pygame.sprite.spritecollide(player, numbers, True)
+
+    if hits:
+        for num in hits:
+            player.current.append(num.val)
+
+    print(type(player.current))
 
     ######## Render (draw)
 

@@ -31,7 +31,7 @@ class numbers(pygame.sprite.Sprite):
         self.speed = random.randrange(1, 5)
         
         # the objects mathematical value
-        self.val = random.randrange(1, 9)
+        self.val = str(random.randrange(1, 9))
         
     def update(self):
         self.rect.x -= self.speed
