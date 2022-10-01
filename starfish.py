@@ -12,6 +12,7 @@ import random
 import arithmatics_class, numbers_class
 from objects import Player, WIDTH, HEIGHT
 from equations_class import Equation
+from goal_class import Goal
 from helper_funcs import evaluate_equation
 from lives_class import LivesClass
 
@@ -36,14 +37,21 @@ background = pygame.image.load("bg.jpg")
 background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 bg_rect = background.get_rect()
 
+
+goal_num = random.randrange(2, 40)
+lives = 3
+
 ### sprites
 all_sprites = pygame.sprite.Group()
 
 player = Player()
 all_sprites.add(player)
 
-equation = Equation("1 + 1 = 2")
+equation = Equation("")
 all_sprites.add(equation)
+
+goal = Goal(str(goal_num))
+all_sprites.add(goal)
 
 all_signs = pygame.sprite.Group()
 sign_plus = arithmatics_class.Arithmatics("+", 450, 650, "plus.png")
@@ -53,6 +61,7 @@ all_signs.add(sign_sub)
 
 numbers = pygame.sprite.Group()
 
+end_state = False
 
 def create_number(n):
 
@@ -66,8 +75,12 @@ create_number(5)
 
 ###
 
-goal_num = random.randrange(2, 40)
+goal_num = 1#random.randrange(2, 40)
 lives = 3
+# # Display the goal number
+# font = pygame.font.SysFont("comicsansms", 72)
+# text = font.render(str(goal_num), True, (0, 0, 0))
+# screen.blit(text, (0, 0))
 
 # Game Loop
 running = True
@@ -82,12 +95,14 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
             if evaluate_equation(player.current) == goal_num:
                 end_state = True
+                running = False
             else:
                 lives-= 1
                 player.current = []
+
 
     if lives == 0:
         running = False
@@ -101,6 +116,7 @@ while running:
         current_x -= 80
 
 
+        
     ######## Update
 
     all_sprites.update()
@@ -114,6 +130,11 @@ while running:
                 and not player.current[-1].isdigit()
             ):
                 player.current.append(num.val)
+                
+    # respawns a new fish if one goes off screen
+    for obj in numbers:
+        if obj.rect.right < 0:
+            numbers.remove(obj)
 
     # keeps 5 fish on screen at all times
     if len(numbers) < 5:
@@ -124,6 +145,7 @@ while running:
         for hit in hits2:
             if len(player.current) > 0 and player.current[-1] not in ["-", "+"]:
                 player.current.append(hit.sign)
+            
 
     equation.set_equation(" ".join(player.current))
 
@@ -135,5 +157,33 @@ while running:
     all_sprites.draw(screen)
 
     pygame.display.flip()
+
+    
+if end_state:
+    screen.fill(BLACK)
+    screen.blit(background, bg_rect)
+
+    font = pygame.font.Font("freesansbold.ttf", 32)
+    text = font.render("Winner!", True, (0, 0, 0))
+    textRect = text.get_rect()
+    screen.blit(text, textRect)
+    
+elif end_state == False :
+    screen.fill(BLACK)
+    screen.blit(background, bg_rect)
+    
+    font = pygame.font.Font('freesansbold.ttf', 32)
+    text = font.render('Loser!', True, (0, 0, 0))
+    textRect = text.get_rect()
+    screen.blit(text, textRect)
+    
+
+
+else:
+    screen.fill(BLACK)
+    screen.blit(background, bg_rect)
+    all_signs.draw(screen)
+    all_sprites.draw(screen)
+
 
 pygame.quit()
