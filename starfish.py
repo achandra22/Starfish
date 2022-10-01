@@ -38,14 +38,19 @@ player = Player()
 all_sprites.add(player)
 
 numbers = pygame.sprite.Group()
-for i in range(5):
-    number = numbers_class.numbers()
-    all_sprites.add(number)
-    numbers.add(number)
-
+def create_number(n):
+    
+    for i in range(n):
+        number = numbers_class.numbers()
+        all_sprites.add(number)
+        numbers.add(number)
+        
+create_number(5)
+    
 all_signs = pygame.sprite.Group()
 sign = arithmatics_class.Arithmatics("+", 100, 300, "plus.png")
 all_signs.add(sign)
+
 
 # Game Loop
 running = True
@@ -69,9 +74,12 @@ while running:
     if hits:
         for num in hits:
             player.current.append(num.val)
-    
-    print(type(player.current))
 
+    # keeps 5 fish on screen at all times
+    if len(numbers) < 5:
+        create_number(5 - len(numbers))
+
+        
     ######## Render (draw)
 
     screen.fill(BLACK)
