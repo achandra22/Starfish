@@ -69,20 +69,18 @@ def create_number(n):
         all_sprites.add(number)
         numbers.add(number)
 
-
 create_number(5)
 
-<<<<<<< HEAD
 ###
 
-goal_num = 1#random.randrange(2, 40)
+goal_num = random.randrange(2, 40)
 lives = 3
-=======
+
 # # Display the goal number
 # font = pygame.font.SysFont("comicsansms", 72)
 # text = font.render(str(goal_num), True, (0, 0, 0))
 # screen.blit(text, (0, 0))
->>>>>>> c6e7bc420d1144c587d428e36b6b63675e55e651
+
 
 # Game Loop
 running = True
@@ -96,7 +94,6 @@ while running:
         # check for closing window
         if event.type == pygame.QUIT:
             running = False
-<<<<<<< HEAD
             
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
            print(1)
@@ -105,22 +102,10 @@ while running:
                end_state = True
                running = False
            else:
-               # lose
+               # lost life
                lives -= 1
                print("lost_a_life")
-              
-=======
 
-    # When they press space to compare
-    for event in pygame.event.get():
-
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_ENTER:
-            if evaluate_equation(player.current) == goal_num:
-                print("you_win")
-                end_state = True
-            else:
-                print("lost_a_life")
->>>>>>> c6e7bc420d1144c587d428e36b6b63675e55e651
 
     if lives == 0:
         running = False
@@ -167,38 +152,23 @@ while running:
 
     pygame.display.flip()
 
-<<<<<<< HEAD
-    
-=======
->>>>>>> c6e7bc420d1144c587d428e36b6b63675e55e651
+
+font = pygame.font.Font("freesansbold.ttf", 32)
+
 if end_state:
     screen.fill(BLACK)
     screen.blit(background, bg_rect)
-
-    font = pygame.font.Font("freesansbold.ttf", 32)
     text = font.render("Winner!", True, (0, 0, 0))
     textRect = text.get_rect()
     screen.blit(text, textRect)
-<<<<<<< HEAD
     
 elif end_state == False :
     screen.fill(BLACK)
     screen.blit(background, bg_rect)
     
-    font = pygame.font.Font('freesansbold.ttf', 32)
     text = font.render('Loser!', True, (0, 0, 0))
     textRect = text.get_rect()
     screen.blit(text, textRect)
-    
-=======
 
-
-else:
-    screen.fill(BLACK)
-    screen.blit(background, bg_rect)
-    all_signs.draw(screen)
-    all_sprites.draw(screen)
-
->>>>>>> c6e7bc420d1144c587d428e36b6b63675e55e651
 
 pygame.quit()
