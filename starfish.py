@@ -5,6 +5,7 @@ Created on Sat Oct  1 08:15:04 2022
 @author: hbori
 """
 
+from curses.textpad import rectangle
 import pygame
 
 import arithmatics_class, numbers_class
@@ -36,6 +37,13 @@ all_sprites = pygame.sprite.Group()
 
 player = Player()
 all_sprites.add(player)
+
+all_signs = pygame.sprite.Group()
+sign_plus = arithmatics_class.Arithmatics("+", 100, 650, "plus.png")
+all_signs.add(sign_plus)
+sign_sub = arithmatics_class.Arithmatics("-", 200, 650, "minus.png")
+all_signs.add(sign_sub)
+
 
 numbers = pygame.sprite.Group()
 def create_number(n):
@@ -84,12 +92,11 @@ while running:
 
     screen.fill(BLACK)
     screen.blit(background, bg_rect)
+    all_signs.draw(screen)
     all_sprites.draw(screen)
 
-    # all_signs.draw(screen)
+    
     pygame.display.flip()
-
-    #testtttting
     
 pygame.quit()
 
