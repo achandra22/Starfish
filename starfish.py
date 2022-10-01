@@ -34,6 +34,10 @@ all_sprites = pygame.sprite.Group()
 player = Player()
 all_sprites.add(player)
 
+for i in range(5):
+    number = objects.numbers()
+    all_sprites.add(number)
+
 # all_signs = pygame.sprite.Group()
 # sign = arithmatics_class.Arithmatics("plus", 100, 300, "plus.png")
 
