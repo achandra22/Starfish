@@ -19,8 +19,12 @@ class numbers(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
 
-        self.image = pygame.image.load("fish.png").convert()
-        self.image = pygame.transform.scale(self.image, (100, 100))
+        image = ["can.png", "plastic-bottle.png", "plastic.png"]
+
+        self.image = pygame.image.load(random.choice(image)).convert()
+        self.image = pygame.transform.scale(self.image, (100, 100)).convert_alpha()
+
+        self.image = pygame.transform.rotate(self.image, random.randint(-90, 90))
 
         self.image.set_colorkey(BLACK)
 
@@ -43,4 +47,3 @@ class numbers(pygame.sprite.Sprite):
 
     def update(self):
         self.rect.x -= self.speed
-        
