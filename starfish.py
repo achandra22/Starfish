@@ -9,6 +9,7 @@ import pygame
 
 import arithmatics_class
 from objects import Player, WIDTH, HEIGHT
+from equations_class import Equation
 
 # import objects
 FPS = 30  # frames per second
@@ -41,10 +42,13 @@ for i in range(5):
     number = objects.numbers()
     all_sprites.add(number)
 
+equation = Equation()
+all_sprites.add(equation)
+
 # all_signs = pygame.sprite.Group()
 # sign = arithmatics_class.Arithmatics("plus", 100, 300, "plus.png")
 
-#all_signs.add(sign)
+# all_signs.add(sign)
 
 # Game Loop
 running = True
@@ -72,7 +76,6 @@ while running:
     # all_signs.draw(screen)
     pygame.display.flip()
 
-    #testtttting
-    
-pygame.quit()
+    # testtttting
 
+pygame.quit()
