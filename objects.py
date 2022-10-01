@@ -6,8 +6,8 @@ Created on Sat Oct  1 08:24:11 2022
 """
 import pygame
 
-WIDTH = 1200  # width of our game window
-HEIGHT = 800  # height of our game window
+WIDTH = 1050  # width of our game window
+HEIGHT = 700  # height of our game window
 
 GREEN = (0, 255, 0)
 BLACK = (0, 0, 0)
