@@ -1,13 +1,12 @@
 import pygame
 
 
-class Arithmatics(pygame.sprite.Sprite):
-    def __init__(self, sign, pos_x, pos_y, picture_path):
+class Running_Equation(pygame.sprite.Sprite):
+    def __init__(self, picture_path):
         super().__init__()
         self.image = pygame.image.load(picture_path)
         self.rect = self.image.get_rect()
-        self.rect.center = [pos_x,pos_y]
-        self.sign = sign
+        self.rect.center = [0,0]
         
         #maybe add sound later
 

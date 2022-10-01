@@ -5,6 +5,7 @@ Created on Sat Oct  1 08:15:04 2022
 @author: hbori
 """
 
+# from curses.textpad import rectangle
 import pygame
 
 import arithmatics_class, numbers_class
@@ -38,18 +39,28 @@ all_sprites = pygame.sprite.Group()
 player = Player()
 all_sprites.add(player)
 
-numbers = pygame.sprite.Group()
-for i in range(5):
-    number = numbers_class.numbers()
-    all_sprites.add(number)
-    numbers.add(number)
-
-equation = Equation()
+equation = Equation("1 + 1 = 2")
 all_sprites.add(equation)
 
 all_signs = pygame.sprite.Group()
-sign = arithmatics_class.Arithmatics("+", 100, 300, "plus.png")
-all_signs.add(sign)
+sign_plus = arithmatics_class.Arithmatics("+", 100, 650, "plus.png")
+all_signs.add(sign_plus)
+sign_sub = arithmatics_class.Arithmatics("-", 200, 650, "minus.png")
+all_signs.add(sign_sub)
+
+
+numbers = pygame.sprite.Group()
+
+
+def create_number(n):
+
+    for i in range(n):
+        number = numbers_class.numbers()
+        all_sprites.add(number)
+        numbers.add(number)
+
+
+create_number(5)
 
 # Game Loop
 running = True
@@ -68,23 +79,31 @@ while running:
 
     all_sprites.update()
 
-    hits = pygame.sprite.spritecollide(player, numbers, True)
+    # hits between player and numbers
+    hits1 = pygame.sprite.spritecollide(player, numbers, True)
 
-    if hits:
-        for num in hits:
+    if hits1:
+        for num in hits1:
             player.current.append(num.val)
 
-    print(type(player.current))
+    # keeps 5 fish on screen at all times
+    if len(numbers) < 5:
+        create_number(5 - len(numbers))
+
+    # hits between the arithmetic signs and player
+    hits2 = pygame.sprite.spritecollide(player, all_signs, False)
+
+    if hits2:
+        for hit in hits2:
+            player.current.append(hit.sign)
 
     ######## Render (draw)
 
     screen.fill(BLACK)
     screen.blit(background, bg_rect)
+    all_signs.draw(screen)
     all_sprites.draw(screen)
 
-    # all_signs.draw(screen)
     pygame.display.flip()
-
-    # testtttting
 
 pygame.quit()
