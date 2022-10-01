@@ -32,7 +32,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Starfish")
 clock = pygame.time.Clock()
 
-shoot_sound = pygame.mixer.Sound('.wav'))
+#shoot_sound = pygame.mixer.Sound('.wav')
 
 ### bg
 
