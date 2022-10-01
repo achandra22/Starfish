@@ -5,6 +5,7 @@ Created on Sat Oct  1 08:24:11 2022
 @author: hbori
 """
 import pygame
+import random
 
 WIDTH = 1050  # width of our game window
 HEIGHT = 700  # height of our game window
@@ -28,8 +29,12 @@ class Player(pygame.sprite.Sprite):
         self.rect.center = (WIDTH / 2, HEIGHT / 2)
 
         # speeds
-        self.speed = 5
+        self.speed = 5 #start at 5
+        
+        # player qualities
 
+        self.current = []
+        
     def update(self):
 
         # updating position
@@ -62,3 +67,5 @@ class Player(pygame.sprite.Sprite):
             self.rect.top = 0
         if self.rect.bottom > HEIGHT:
             self.rect.bottom = HEIGHT
+
+        

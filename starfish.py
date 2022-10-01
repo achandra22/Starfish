@@ -8,7 +8,7 @@ Created on Sat Oct  1 08:15:04 2022
 from curses.textpad import rectangle
 import pygame
 
-import arithmatics_class
+import arithmatics_class, numbers_class
 from objects import Player, WIDTH, HEIGHT
 
 # import objects
@@ -19,6 +19,9 @@ BLACK = (0, 0, 0)
 # initialize pygame and create window
 pygame.init()
 pygame.mixer.init()  # for sound
+pygame.mixer.music.load("game_music.mp3")
+pygame.mixer.music.play(-1)
+
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("My Game")
 clock = pygame.time.Clock()
@@ -42,6 +45,15 @@ sign_sub = arithmatics_class.Arithmatics("-", 200, 650, "minus.png")
 all_signs.add(sign_sub)
 
 
+numbers = pygame.sprite.Group()
+for i in range(5):
+    number = numbers_class.numbers()
+    all_sprites.add(number)
+    numbers.add(number)
+
+all_signs = pygame.sprite.Group()
+sign = arithmatics_class.Arithmatics("+", 100, 300, "plus.png")
+all_signs.add(sign)
 
 # Game Loop
 running = True
@@ -59,6 +71,14 @@ while running:
     ######## Update
 
     all_sprites.update()
+
+    hits = pygame.sprite.spritecollide(player, numbers, True)
+    
+    if hits:
+        for num in hits:
+            player.current.append(num.val)
+    
+    print(type(player.current))
 
     ######## Render (draw)
 
