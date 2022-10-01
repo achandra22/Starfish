@@ -54,7 +54,7 @@ numbers = pygame.sprite.Group()
 
 def create_number(n):
 
-    for i in range(n):
+    for _ in range(n):
         number = numbers_class.numbers()
         all_sprites.add(number)
         numbers.add(number)
@@ -79,10 +79,7 @@ while running:
 
     all_sprites.update()
 
-    # hits between player and numbers
-    hits1 = pygame.sprite.spritecollide(player, numbers, True)
-
-    if hits1:
+    if hits1 := pygame.sprite.spritecollide(player, numbers, True):
         for num in hits1:
             player.current.append(num.val)
 
@@ -90,10 +87,7 @@ while running:
     if len(numbers) < 5:
         create_number(5 - len(numbers))
 
-    # hits between the arithmetic signs and player
-    hits2 = pygame.sprite.spritecollide(player, all_signs, False)
-
-    if hits2:
+    if hits2 := pygame.sprite.spritecollide(player, all_signs, False):
         for hit in hits2:
             player.current.append(hit.sign)
 
