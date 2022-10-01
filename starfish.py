@@ -66,6 +66,7 @@ create_number(5)
 ###
 
 goal_num = random.randrange(2, 40)
+lives = 3
 
 # Game Loop
 running = True
@@ -88,10 +89,14 @@ while running:
 
                 if evaluate_equation(player.current) == goal_num:
                     print("you_win")
+                    end_state = True
                 else:
 
                     print("lost_a_life")
 
+    if lives == 0:
+        running = False
+        end_state = False
     ######## Update
 
     all_sprites.update()
