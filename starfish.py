@@ -12,6 +12,7 @@ import random
 import arithmatics_class, numbers_class
 from objects import Player, WIDTH, HEIGHT
 from equations_class import Equation
+from goal_class import Goal
 from helper_funcs import evaluate_equation
 
 # import objects
@@ -35,14 +36,21 @@ background = pygame.image.load("bg.jpg")
 background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 bg_rect = background.get_rect()
 
+
+goal_num = random.randrange(2, 40)
+lives = 3
+
 ### sprites
 all_sprites = pygame.sprite.Group()
 
 player = Player()
 all_sprites.add(player)
 
-equation = Equation("1 + 1 = 2")
+equation = Equation("")
 all_sprites.add(equation)
+
+goal = Goal(str(goal_num))
+all_sprites.add(goal)
 
 all_signs = pygame.sprite.Group()
 sign_plus = arithmatics_class.Arithmatics("+", 450, 650, "plus.png")
@@ -63,10 +71,10 @@ def create_number(n):
 
 create_number(5)
 
-###
-
-goal_num = random.randrange(2, 40)
-lives = 3
+# # Display the goal number
+# font = pygame.font.SysFont("comicsansms", 72)
+# text = font.render(str(goal_num), True, (0, 0, 0))
+# screen.blit(text, (0, 0))
 
 # Game Loop
 running = True
@@ -90,7 +98,6 @@ while running:
                 end_state = True
             else:
                 print("lost_a_life")
-                
 
     if lives == 0:
         running = False
@@ -129,23 +136,22 @@ while running:
     all_sprites.draw(screen)
 
     pygame.display.flip()
-    
+
 if end_state:
     screen.fill(BLACK)
     screen.blit(background, bg_rect)
-    
-    font = pygame.font.Font('freesansbold.ttf', 32)
-    text = font.render('Winner!', True, (0, 0, 0))
+
+    font = pygame.font.Font("freesansbold.ttf", 32)
+    text = font.render("Winner!", True, (0, 0, 0))
     textRect = text.get_rect()
     screen.blit(text, textRect)
-    
-    
-    
+
+
 else:
     screen.fill(BLACK)
     screen.blit(background, bg_rect)
     all_signs.draw(screen)
     all_sprites.draw(screen)
-    
+
 
 pygame.quit()
