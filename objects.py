@@ -30,7 +30,11 @@ class Player(pygame.sprite.Sprite):
 
         # speeds
         self.speed = 5 #start at 5
+        
+        # player qualities
 
+        self.current = []
+        
     def update(self):
 
         # updating position
