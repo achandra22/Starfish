@@ -84,12 +84,13 @@ while running:
     # When they press space to compare
     for event in pygame.event.get():
 
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_ENTER:
             if evaluate_equation(player.current) == goal_num:
                 print("you_win")
                 end_state = True
             else:
                 print("lost_a_life")
+                
 
     if lives == 0:
         running = False
@@ -128,5 +129,23 @@ while running:
     all_sprites.draw(screen)
 
     pygame.display.flip()
+    
+if end_state:
+    screen.fill(BLACK)
+    screen.blit(background, bg_rect)
+    
+    font = pygame.font.Font('freesansbold.ttf', 32)
+    text = font.render('Winner!', True, (0, 0, 0))
+    textRect = text.get_rect()
+    screen.blit(text, textRect)
+    
+    
+    
+else:
+    screen.fill(BLACK)
+    screen.blit(background, bg_rect)
+    all_signs.draw(screen)
+    all_sprites.draw(screen)
+    
 
 pygame.quit()
