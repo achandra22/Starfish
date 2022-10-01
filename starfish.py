@@ -14,6 +14,7 @@ from objects import Player, WIDTH, HEIGHT
 from equations_class import Equation
 from goal_class import Goal
 from helper_funcs import evaluate_equation
+from lives_class import LivesClass
 
 # import objects
 FPS = 30  # frames per second
@@ -75,21 +76,28 @@ create_number(5)
 
 goal_num = random.randrange(2, 40)
 lives = 3
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8e8936812bc17006baac1b983c396ecabec00232
 # # Display the goal number
 # font = pygame.font.SysFont("comicsansms", 72)
 # text = font.render(str(goal_num), True, (0, 0, 0))
 # screen.blit(text, (0, 0))
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8e8936812bc17006baac1b983c396ecabec00232
 
 # Game Loop
 running = True
 while running:
 
     clock.tick(FPS)
-
+    screen.blit(background, bg_rect)
     ######## Process input (events)
 
+<<<<<<< HEAD
     for event in pygame.event.get():
         # check for closing window
         if event.type == pygame.QUIT:
@@ -105,11 +113,34 @@ while running:
                # lost life
                lives -= 1
                print("lost_a_life")
+=======
+    # When they press space to compare
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+            if evaluate_equation(player.current) == goal_num:
+                end_state = True
+                running = False
+            else:
+                lives-= 1
+                player.current = []
+>>>>>>> 8e8936812bc17006baac1b983c396ecabec00232
 
 
     if lives == 0:
         running = False
         end_state = False
+    
+    #lives update
+    all_lives = pygame.sprite.Group()
+    current_x = 1000
+    for i in range(lives):
+        all_lives.add(LivesClass(current_x, "heart.png"))
+        current_x -= 80
+
+
         
     ######## Update
 
@@ -145,16 +176,20 @@ while running:
 
     ######## Render (draw)
 
-    screen.fill(BLACK)
     screen.blit(background, bg_rect)
+    all_lives.draw(screen)
     all_signs.draw(screen)
     all_sprites.draw(screen)
 
     pygame.display.flip()
 
+<<<<<<< HEAD
 
 font = pygame.font.Font("freesansbold.ttf", 32)
 
+=======
+    
+>>>>>>> 8e8936812bc17006baac1b983c396ecabec00232
 if end_state:
     screen.fill(BLACK)
     screen.blit(background, bg_rect)
@@ -169,6 +204,19 @@ elif end_state == False :
     text = font.render('Loser!', True, (0, 0, 0))
     textRect = text.get_rect()
     screen.blit(text, textRect)
+<<<<<<< HEAD
 
 
+=======
+    
+
+
+else:
+    screen.fill(BLACK)
+    screen.blit(background, bg_rect)
+    all_signs.draw(screen)
+    all_sprites.draw(screen)
+
+
+>>>>>>> 8e8936812bc17006baac1b983c396ecabec00232
 pygame.quit()

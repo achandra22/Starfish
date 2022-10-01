@@ -5,6 +5,11 @@ def evaluate_equation(equation_list):
     Given a list of strings of numbers and signs, return a string of a number if valid.
     If valid, return None.
     """
+    if len(equation_list) == 0:
+        return None
+    elif len(equation_list) == 1:
+        return equation_list[0]
+
     new_list = equation_list.copy()
     if equation_list[-1] in {"-", "+"}:
         new_list = new_list[:-1]
