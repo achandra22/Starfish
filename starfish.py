@@ -12,6 +12,7 @@ import random
 import arithmatics_class, numbers_class
 from objects import Player, WIDTH, HEIGHT
 from equations_class import Equation
+from helper_funcs import evaluate_equation
 
 # import objects
 FPS = 30  # frames per second
@@ -25,7 +26,7 @@ pygame.mixer.music.load("game_music.mp3")
 pygame.mixer.music.play(-1)
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("My Game")
+pygame.display.set_caption("Starfish")
 clock = pygame.time.Clock()
 
 ### bg
@@ -64,7 +65,7 @@ create_number(5)
 
 ###
 
-goal_num = random.randrange(3, 50)
+goal_num = random.randrange(2, 40)
 
 # Game Loop
 running = True
@@ -81,10 +82,15 @@ while running:
 
     # When they press space to compare
     for event in pygame.event.get():
+
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-                ### compare their current val to goal_num
-                pass
+
+                if evaluate_equation(player.current) == goal_num:
+                    print("you_win")
+                else:
+
+                    print("lost_a_life")
 
     ######## Update
 
