@@ -32,8 +32,6 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Starfish")
 clock = pygame.time.Clock()
 
-#shoot_sound = pygame.mixer.Sound('.wav')
-
 ### bg
 
 background = pygame.image.load("bg.jpg")
@@ -103,6 +101,7 @@ while running:
            else:
                # lost life
                lives -= 1
+               player.current = []
         
 
     # When they press space to compare
@@ -138,6 +137,7 @@ while running:
 
     # hits between player and numbers
     if hits1 := pygame.sprite.spritecollide(player, numbers, True):
+        player.Sound()
         for num in hits1:
             if (
                 len(player.current) == 0
@@ -174,7 +174,7 @@ while running:
     pygame.display.flip()
 
 
-font = pygame.font.Font("freesansbold.ttf", 32)
+font = pygame.font.Font("freesansbold.ttf", 100)
 
 hi = True
 
@@ -189,17 +189,15 @@ while hi:
     if end_state:
         screen.fill(BLACK)
         screen.blit(background, bg_rect)
-        text = font.render("Winner!", True, (0, 0, 0))
-        textRect = text.get_rect()
-        screen.blit(text, textRect)
+        text = font.render("Hoorah!", True, (255, 255, 255))
+        screen.blit(text, (WIDTH/2, HEIGHT/2))
         
     elif end_state == False :
         screen.fill(BLACK)
         screen.blit(background, bg_rect)
         
-        text = font.render('Loser!', True, (0, 0, 0))
-        textRect = text.get_rect()
-        screen.blit(text, textRect)
+        text = font.render(':(', True, (255, 255, 255))
+        screen.blit(text, (WIDTH/2, HEIGHT/2))
 
 
     pygame.display.flip()
