@@ -84,15 +84,12 @@ while running:
     # When they press space to compare
     for event in pygame.event.get():
 
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
-
-                if evaluate_equation(player.current) == goal_num:
-                    print("you_win")
-                    end_state = True
-                else:
-
-                    print("lost_a_life")
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+            if evaluate_equation(player.current) == goal_num:
+                print("you_win")
+                end_state = True
+            else:
+                print("lost_a_life")
 
     if lives == 0:
         running = False
