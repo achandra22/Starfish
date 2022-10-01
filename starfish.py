@@ -13,6 +13,7 @@ import arithmatics_class, numbers_class
 from objects import Player, WIDTH, HEIGHT
 from equations_class import Equation
 from helper_funcs import evaluate_equation
+from lives_class import LivesClass
 
 # import objects
 FPS = 30  # frames per second
@@ -73,27 +74,33 @@ running = True
 while running:
 
     clock.tick(FPS)
-
+    screen.blit(background, bg_rect)
     ######## Process input (events)
-
-    for event in pygame.event.get():
-        # check for closing window
-        if event.type == pygame.QUIT:
-            running = False
 
     # When they press space to compare
     for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
 
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
             if evaluate_equation(player.current) == goal_num:
-                print("you_win")
                 end_state = True
             else:
-                print("lost_a_life")
+                lives-= 1
+                player.current = []
 
     if lives == 0:
         running = False
         end_state = False
+    
+    #lives update
+    all_lives = pygame.sprite.Group()
+    current_x = 1000
+    for i in range(lives):
+        all_lives.add(LivesClass(current_x, "heart.png"))
+        current_x -= 80
+
+
     ######## Update
 
     all_sprites.update()
@@ -122,8 +129,8 @@ while running:
 
     ######## Render (draw)
 
-    screen.fill(BLACK)
     screen.blit(background, bg_rect)
+    all_lives.draw(screen)
     all_signs.draw(screen)
     all_sprites.draw(screen)
 
