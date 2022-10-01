@@ -43,3 +43,4 @@ class numbers(pygame.sprite.Sprite):
 
     def update(self):
         self.rect.x -= self.speed
+        

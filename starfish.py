@@ -52,6 +52,7 @@ all_signs.add(sign_sub)
 
 numbers = pygame.sprite.Group()
 
+end_state = False
 
 def create_number(n):
 
@@ -80,18 +81,18 @@ while running:
         # check for closing window
         if event.type == pygame.QUIT:
             running = False
-
-    # When they press space to compare
-    for event in pygame.event.get():
-
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_ENTER:
-            if evaluate_equation(player.current) == goal_num:
-                print("you_win")
-                end_state = True
-                running = False
-            else:
-                print("lost_a_life")
-                
+            
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+           print(1)
+           if evaluate_equation(player.current) == goal_num:
+               # win
+               end_state = True
+               running = False
+           else:
+               # lose
+               lives -= 1
+               print("lost_a_life")
+              
 
     if lives == 0:
         running = False
@@ -110,6 +111,11 @@ while running:
                 and not player.current[-1].isdigit()
             ):
                 player.current.append(num.val)
+                
+    # respawns a new fish if one goes off screen
+    for obj in numbers:
+        if obj.rect.right < 0:
+            numbers.remove(obj)
 
     # keeps 5 fish on screen at all times
     if len(numbers) < 5:
@@ -120,6 +126,7 @@ while running:
         for hit in hits2:
             if len(player.current) > 0 and player.current[-1] not in ["-", "+"]:
                 player.current.append(hit.sign)
+            
 
     equation.set_equation(" ".join(player.current))
 
@@ -131,6 +138,7 @@ while running:
     all_sprites.draw(screen)
 
     pygame.display.flip()
+
     
 if end_state:
     screen.fill(BLACK)
@@ -141,12 +149,14 @@ if end_state:
     textRect = text.get_rect()
     screen.blit(text, textRect)
     
-    
-else:
+elif end_state == False :
     screen.fill(BLACK)
     screen.blit(background, bg_rect)
-    all_signs.draw(screen)
-    all_sprites.draw(screen)
+    
+    font = pygame.font.Font('freesansbold.ttf', 32)
+    text = font.render('Loser!', True, (0, 0, 0))
+    textRect = text.get_rect()
+    screen.blit(text, textRect)
     
 
 pygame.quit()
