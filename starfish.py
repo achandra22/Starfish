@@ -12,6 +12,7 @@ import random
 import arithmatics_class, numbers_class
 from objects import Player, WIDTH, HEIGHT
 from equations_class import Equation
+from helper_funcs import evaluate_equation
 
 # import objects
 FPS = 30  # frames per second
@@ -81,42 +82,31 @@ while running:
 
     # When they press space to compare
     for event in pygame.event.get():
-      if event.type == pygame.KEYDOWN:
-          if event.key == pygame.K_SPACE:
-              ### compare their current val to goal_num
-              pass
+        
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+              
+                if evaluate_equation(player.current) == goal_num:
+                    print('you_win')
+                else:
+                    print('lost_a_life')
+
 
     ######## Update
 
     all_sprites.update()
 
-<<<<<<< HEAD
-    # hits between player and numbers
-    _hits1 = pygame.sprite.spritecollide(player, numbers, True)
-    
-    if _hits1:
-        for num in _hits1:
-=======
     if hits1 := pygame.sprite.spritecollide(player, numbers, True):
         for num in hits1:
->>>>>>> d5986877df4f2c0b90ac2545a80dd239c2338c25
             player.current.append(num.val)
 
     # keeps 5 fish on screen at all times
     if len(numbers) < 5:
         create_number(5 - len(numbers))
-<<<<<<< HEAD
-        
-    # hits between the arithmetic signs and player
-    _hits2 = pygame.sprite.spritecollide(player, all_signs, False)
-    
-    if _hits2:
-        for hit in _hits2:
-=======
+
 
     if hits2 := pygame.sprite.spritecollide(player, all_signs, False):
         for hit in hits2:
->>>>>>> d5986877df4f2c0b90ac2545a80dd239c2338c25
             player.current.append(hit.sign)
 
     ######## Render (draw)
