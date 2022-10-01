@@ -180,9 +180,6 @@ elif end_state == False :
     screen.blit(text, textRect)
 
 
-    
-
-
 else:
     screen.fill(BLACK)
     screen.blit(background, bg_rect)

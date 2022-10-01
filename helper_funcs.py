@@ -3,10 +3,10 @@
 def evaluate_equation(equation_list):
     """
     Given a list of strings of numbers and signs, return a string of a number if valid.
-    If valid, return None.
+    If valid, return None. Return 0 if empty list.
     """
     if len(equation_list) == 0:
-        return None
+        return 0
     elif len(equation_list) == 1:
         return equation_list[0]
 
