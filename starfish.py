@@ -5,11 +5,12 @@ Created on Sat Oct  1 08:15:04 2022
 @author: hbori
 """
 
-from curses.textpad import rectangle
+# from curses.textpad import rectangle
 import pygame
 
 import arithmatics_class, numbers_class
 from objects import Player, WIDTH, HEIGHT
+from equations_class import Equation
 
 # import objects
 FPS = 30  # frames per second
@@ -38,6 +39,9 @@ all_sprites = pygame.sprite.Group()
 player = Player()
 all_sprites.add(player)
 
+equation = Equation("1 + 1 = 2")
+all_sprites.add(equation)
+
 all_signs = pygame.sprite.Group()
 sign_plus = arithmatics_class.Arithmatics("+", 450, 650, "plus.png")
 all_signs.add(sign_plus)
@@ -46,11 +50,17 @@ all_signs.add(sign_sub)
 
 
 numbers = pygame.sprite.Group()
-for i in range(5):
-    number = numbers_class.numbers()
-    all_sprites.add(number)
-    numbers.add(number)
 
+
+def create_number(n):
+
+    for _ in range(n):
+        number = numbers_class.numbers()
+        all_sprites.add(number)
+        numbers.add(number)
+
+
+create_number(5)
 
 # Game Loop
 running = True
@@ -69,13 +79,17 @@ while running:
 
     all_sprites.update()
 
-    hits = pygame.sprite.spritecollide(player, numbers, True)
-    
-    if hits:
-        for num in hits:
+    if hits1 := pygame.sprite.spritecollide(player, numbers, True):
+        for num in hits1:
             player.current.append(num.val)
-    
-    print(type(player.current))
+
+    # keeps 5 fish on screen at all times
+    if len(numbers) < 5:
+        create_number(5 - len(numbers))
+
+    if hits2 := pygame.sprite.spritecollide(player, all_signs, False):
+        for hit in hits2:
+            player.current.append(hit.sign)
 
     ######## Render (draw)
 
@@ -84,8 +98,6 @@ while running:
     all_signs.draw(screen)
     all_sprites.draw(screen)
 
-    
     pygame.display.flip()
-    
-pygame.quit()
 
+pygame.quit()
