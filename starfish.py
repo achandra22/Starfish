@@ -5,7 +5,7 @@ Created on Sat Oct  1 08:15:04 2022
 @author: hbori
 """
 
-from curses.textpad import rectangle
+#from curses.textpad import rectangle
 import pygame
 
 import arithmatics_class, numbers_class
@@ -54,11 +54,6 @@ def create_number(n):
         numbers.add(number)
         
 create_number(5)
-    
-all_signs = pygame.sprite.Group()
-sign = arithmatics_class.Arithmatics("+", 100, 300, "plus.png")
-all_signs.add(sign)
-
 
 # Game Loop
 running = True
@@ -77,17 +72,24 @@ while running:
 
     all_sprites.update()
 
-    hits = pygame.sprite.spritecollide(player, numbers, True)
+    # hits between player and numbers
+    hits1 = pygame.sprite.spritecollide(player, numbers, True)
     
-    if hits:
-        for num in hits:
+    if hits1:
+        for num in hits1:
             player.current.append(num.val)
 
     # keeps 5 fish on screen at all times
     if len(numbers) < 5:
         create_number(5 - len(numbers))
-
         
+    # hits between the arithmetic signs and player
+    hits2 = pygame.sprite.spritecollide(player, all_signs, False)
+    
+    if hits2:
+        for hit in hits2:
+            player.current.append(hit.sign)
+                   
     ######## Render (draw)
 
     screen.fill(BLACK)
