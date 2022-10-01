@@ -7,6 +7,7 @@ Created on Sat Oct  1 08:15:04 2022
 
 #from curses.textpad import rectangle
 import pygame
+import random
 
 import arithmatics_class, numbers_class
 from objects import Player, WIDTH, HEIGHT
@@ -44,7 +45,6 @@ all_signs.add(sign_plus)
 sign_sub = arithmatics_class.Arithmatics("-", 200, 650, "minus.png")
 all_signs.add(sign_sub)
 
-
 numbers = pygame.sprite.Group()
 def create_number(n):
     
@@ -54,6 +54,10 @@ def create_number(n):
         numbers.add(number)
         
 create_number(5)
+
+### 
+
+goal_num = random.randrange(3, 50)
 
 # Game Loop
 running = True
@@ -68,15 +72,22 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
+    # When they press space to compare
+    for event in pygame.event.get():
+      if event.type == pygame.KEYDOWN:
+          if event.key == pygame.K_SPACE:
+              ### compare their current val to goal_num
+              pass
+
     ######## Update
 
     all_sprites.update()
 
     # hits between player and numbers
-    hits1 = pygame.sprite.spritecollide(player, numbers, True)
+    _hits1 = pygame.sprite.spritecollide(player, numbers, True)
     
-    if hits1:
-        for num in hits1:
+    if _hits1:
+        for num in _hits1:
             player.current.append(num.val)
 
     # keeps 5 fish on screen at all times
@@ -84,10 +95,10 @@ while running:
         create_number(5 - len(numbers))
         
     # hits between the arithmetic signs and player
-    hits2 = pygame.sprite.spritecollide(player, all_signs, False)
+    _hits2 = pygame.sprite.spritecollide(player, all_signs, False)
     
-    if hits2:
-        for hit in hits2:
+    if _hits2:
+        for hit in _hits2:
             player.current.append(hit.sign)
                    
     ######## Render (draw)
