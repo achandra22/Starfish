@@ -26,7 +26,7 @@ pygame.mixer.music.load("game_music.mp3")
 pygame.mixer.music.play(-1)
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("My Game")
+pygame.display.set_caption("Starfish")
 clock = pygame.time.Clock()
 
 ### bg
@@ -65,7 +65,7 @@ create_number(5)
 
 ### 
 
-goal_num = random.randrange(3, 50)
+goal_num = random.randrange(2, 40)
 
 # Game Loop
 running = True
@@ -89,6 +89,7 @@ while running:
                 if evaluate_equation(player.current) == goal_num:
                     print('you_win')
                 else:
+
                     print('lost_a_life')
 
 
@@ -96,11 +97,11 @@ while running:
 
     all_sprites.update()
 
-<<<<<<< HEAD
+
     if hits1 := pygame.sprite.spritecollide(player, numbers, True):
         for num in hits1:
             player.current.append(num.val)
-=======
+
     # hits between player and numbers
     _hits1 = pygame.sprite.spritecollide(player, numbers, True)
     
@@ -112,18 +113,15 @@ while running:
                 and not player.current[-1].isdigit()
             ):
                 player.current.append(num.val)
->>>>>>> 811a833a94a0aaf3569a794656810846303c11b4
 
     # keeps 5 fish on screen at all times
     if len(numbers) < 5:
         create_number(5 - len(numbers))
-<<<<<<< HEAD
-
-
+        
     if hits2 := pygame.sprite.spritecollide(player, all_signs, False):
         for hit in hits2:
             player.current.append(hit.sign)
-=======
+
         
     # hits between the arithmetic signs and player
     _hits2 = pygame.sprite.spritecollide(player, all_signs, False)
@@ -135,7 +133,6 @@ while running:
 
     equation.set_equation(" ".join(player.current))
     # print(equation.get_equation())
->>>>>>> 811a833a94a0aaf3569a794656810846303c11b4
 
     ######## Render (draw)
 
