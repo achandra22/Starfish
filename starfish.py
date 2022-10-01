@@ -5,12 +5,13 @@ Created on Sat Oct  1 08:15:04 2022
 @author: hbori
 """
 
-#from curses.textpad import rectangle
+# from curses.textpad import rectangle
 import pygame
 import random
 
 import arithmatics_class, numbers_class
 from objects import Player, WIDTH, HEIGHT
+from equations_class import Equation
 
 # import objects
 FPS = 30  # frames per second
@@ -39,20 +40,26 @@ all_sprites = pygame.sprite.Group()
 player = Player()
 all_sprites.add(player)
 
+equation = Equation("1 + 1 = 2")
+all_sprites.add(equation)
+
 all_signs = pygame.sprite.Group()
-sign_plus = arithmatics_class.Arithmatics("+", 100, 650, "plus.png")
+sign_plus = arithmatics_class.Arithmatics("+", 450, 650, "plus.png")
 all_signs.add(sign_plus)
-sign_sub = arithmatics_class.Arithmatics("-", 200, 650, "minus.png")
+sign_sub = arithmatics_class.Arithmatics("-", 550, 650, "minus.png")
 all_signs.add(sign_sub)
 
 numbers = pygame.sprite.Group()
+
+
 def create_number(n):
-    
-    for i in range(n):
+
+    for _ in range(n):
         number = numbers_class.numbers()
         all_sprites.add(number)
         numbers.add(number)
-        
+
+
 create_number(5)
 
 ### 
@@ -83,24 +90,35 @@ while running:
 
     all_sprites.update()
 
+<<<<<<< HEAD
     # hits between player and numbers
     _hits1 = pygame.sprite.spritecollide(player, numbers, True)
     
     if _hits1:
         for num in _hits1:
+=======
+    if hits1 := pygame.sprite.spritecollide(player, numbers, True):
+        for num in hits1:
+>>>>>>> d5986877df4f2c0b90ac2545a80dd239c2338c25
             player.current.append(num.val)
 
     # keeps 5 fish on screen at all times
     if len(numbers) < 5:
         create_number(5 - len(numbers))
+<<<<<<< HEAD
         
     # hits between the arithmetic signs and player
     _hits2 = pygame.sprite.spritecollide(player, all_signs, False)
     
     if _hits2:
         for hit in _hits2:
+=======
+
+    if hits2 := pygame.sprite.spritecollide(player, all_signs, False):
+        for hit in hits2:
+>>>>>>> d5986877df4f2c0b90ac2545a80dd239c2338c25
             player.current.append(hit.sign)
-                   
+
     ######## Render (draw)
 
     screen.fill(BLACK)
@@ -108,8 +126,6 @@ while running:
     all_signs.draw(screen)
     all_sprites.draw(screen)
 
-    
     pygame.display.flip()
-    
-pygame.quit()
 
+pygame.quit()
