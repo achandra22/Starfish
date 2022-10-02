@@ -68,12 +68,14 @@ numbers = pygame.sprite.Group()
 
 end_state = False
 
+
 def create_number(n):
 
     for _ in range(n):
         number = numbers_class.numbers()
         all_sprites.add(number)
         numbers.add(number)
+
 
 create_number(5)
 
@@ -133,26 +135,26 @@ while running:
         if event.type == pygame.KEYDOWN and event.key == pygame.K_u:
             player.current = player.current[:-1]
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-           if int(evaluate_equation(player.current)) == goal_num:
-               # win
-               end_state = True
-               running = False
-           else:
-               # lost life
-               lives -= 1
-               player.current = []
-        
+            if int(evaluate_equation(player.current)) == goal_num:
+                # win
+                end_state = True
+                running = False
+            else:
+                # lost life
+                lives -= 1
+                player.current = []
+
     if lives == 0:
         running = False
         end_state = False
-    
-    #lives update
+
+    # lives update
     all_lives = pygame.sprite.Group()
     current_x = 1000
-    for i in range(lives):
+    for _ in range(lives):
         all_lives.add(LivesClass(current_x, "heart.png"))
         current_x -= 80
-        
+
     ######## Update
 
     all_sprites.update()
@@ -167,7 +169,7 @@ while running:
                 and not player.current[-1].isdigit()
             ):
                 player.current.append(num.val)
-                
+
     # respawns a new fish if one goes off screen
     for obj in numbers:
         if obj.rect.right < 0:
@@ -182,7 +184,6 @@ while running:
         for hit in hits2:
             if len(player.current) > 0 and player.current[-1] not in ["-", "+"]:
                 player.current.append(hit.sign)
-            
 
     equation.set_equation(" ".join(player.current))
 
@@ -208,30 +209,29 @@ bg_sad = pygame.image.load("bg_dirty.jpg")
 bg_sad = pygame.transform.scale(bg_sad, (WIDTH, HEIGHT))
 bg_sad_rect = bg_sad.get_rect()
 
-middle = (WIDTH/2, HEIGHT/2)
+middle = (WIDTH / 2, HEIGHT / 2)
 
 while hi:
-    
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-               hi = False
+            hi = False
         if event.type == pygame.QUIT:
-                hi = False
-    
+            hi = False
+
     if end_state:
         screen.fill(BLACK)
         screen.blit(bg_happy, bg_happy_rect)
-        screen.blit(starfish_happy, (WIDTH/2- 128, HEIGHT/2-128))
+        screen.blit(starfish_happy, (WIDTH / 2 - 128, HEIGHT / 2 - 128))
         text = font.render("You're a star!", True, (255, 255, 255))
-        screen.blit(text, (WIDTH/2-200, 0))
-        
-    elif end_state == False :
+        screen.blit(text, (WIDTH / 2 - 200, 0))
+
+    elif end_state == False:
         screen.fill(BLACK)
         screen.blit(bg_sad, bg_sad_rect)
-        screen.blit(starfish_sad,(WIDTH/2- 128, HEIGHT/2-128))
-        
-        text = font.render(' what a Di-STAR-ster!', True, (255, 255, 255))
-        screen.blit(text, (WIDTH/2-400, 0))
+        screen.blit(starfish_sad, (WIDTH / 2 - 128, HEIGHT / 2 - 128))
+
+        text = font.render(" what a Di-STAR-ster!", True, (255, 255, 255))
+        screen.blit(text, (WIDTH / 2 - 400, 0))
 
 
     pygame.display.flip()
