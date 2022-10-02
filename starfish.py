@@ -31,6 +31,7 @@ pygame.init()
 pygame.mixer.init()  # for sound
 pygame.mixer.music.load("game_music.mp3")
 pygame.mixer.music.play(-1)
+pygame.mixer.music.set_volume(.1)
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Starfish")
@@ -96,7 +97,8 @@ while running:
         # check for closing window
         if event.type == pygame.QUIT:
             running = False
-            
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_u:
+            player.current = player.current[:-1]
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
            if int(evaluate_equation(player.current)) == goal_num:
                # win
@@ -107,21 +109,6 @@ while running:
                lives -= 1
                player.current = []
         
-
-    # When they press space to compare
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-            if int(evaluate_equation(player.current)) == goal_num:
-                end_state = True
-                running = False
-            else:
-                lives-= 1
-                player.current = []
-
-
     if lives == 0:
         running = False
         end_state = False
