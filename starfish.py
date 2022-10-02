@@ -32,7 +32,7 @@ pygame.mixer.music.load("game_music.mp3")
 pygame.mixer.music.play(-1)
 pygame.mixer.music.set_volume(0.1)
 
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
 pygame.display.set_caption("Starfish")
 clock = pygame.time.Clock()
 
@@ -43,7 +43,7 @@ background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 bg_rect = background.get_rect()
 
 
-goal_num = 5  # random.randrange(2, 40)
+goal_num = random.randrange(2, 20)
 lives = 3
 
 ### sprites
@@ -88,6 +88,46 @@ create_number(5)
 
 # Game Loop
 running = True
+
+####
+
+start = False
+
+font = pygame.font.SysFont("comicsansms", 72)
+start_font = pygame.font.SysFont("comicsansms", 40)
+
+while not start:
+
+    screen.blit(background, bg_rect)
+    text = start_font.render(
+        "Help penta-paul clean his ocean niche!", True, (255, 255, 255)
+    )
+    text1 = start_font.render(
+        "Use the arrow keys to collect numbers and operations", True, (255, 255, 255)
+    )
+    text2 = start_font.render(
+        "All the while cleaning up the seas!", True, (255, 255, 255)
+    )
+    text3 = start_font.render("Press the U key to undo", True, (255, 255, 255))
+    text4 = start_font.render(
+        "Press space to submit your expression", True, (255, 255, 255)
+    )
+
+    screen.blit(text, (WIDTH / 2 - 350, 50))
+    screen.blit(text1, (WIDTH / 2 - 500, 130))
+    screen.blit(text2, (WIDTH / 2 - 320, 210))
+    screen.blit(text3, (WIDTH / 2 - 250, 290))
+    screen.blit(text4, (WIDTH / 2 - 350, 370))
+    pygame.display.flip()
+
+    for event in pygame.event.get():
+        # check for closing window
+        if event.type == pygame.QUIT:
+            start, running = True, False
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+            start = True
+####
+
 while running:
 
     clock.tick(FPS)
@@ -163,16 +203,21 @@ while running:
     pygame.display.flip()
 
 
-font = pygame.font.SysFont("comicsansms", 72)
-
 hi = True
 
 starfish_happy = pygame.image.load("starfish_end.png")
+bg_happy = pygame.image.load("bg_clean.jpg")
+bg_happy = pygame.transform.scale(bg_happy, (WIDTH, HEIGHT))
+bg_happy_rect = bg_happy.get_rect()
+
 starfish_sad = pygame.image.load("starfish_sad.png")
+bg_sad = pygame.image.load("bg_dirty.jpg")
+bg_sad = pygame.transform.scale(bg_sad, (WIDTH, HEIGHT))
+bg_sad_rect = bg_sad.get_rect()
+
 middle = (WIDTH / 2, HEIGHT / 2)
 
 while hi:
-
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
             hi = False
@@ -181,15 +226,18 @@ while hi:
 
     if end_state:
         screen.fill(BLACK)
-        screen.blit(background, bg_rect)
+        screen.blit(bg_happy, bg_happy_rect)
         screen.blit(starfish_happy, (WIDTH / 2 - 128, HEIGHT / 2 - 128))
         text = font.render("You're a star!", True, (255, 255, 255))
         screen.blit(text, (WIDTH / 2 - 200, 0))
 
     elif end_state == False:
         screen.fill(BLACK)
-        screen.blit(background, bg_rect)
+        screen.blit(bg_sad, bg_sad_rect)
         screen.blit(starfish_sad, (WIDTH / 2 - 128, HEIGHT / 2 - 128))
+
+        text = font.render(" what a Di-STAR-ster!", True, (255, 255, 255))
+        screen.blit(text, (WIDTH / 2 - 400, 0))
 
         text = font.render("Oh no!", True, (255, 255, 255))
         screen.blit(text, (WIDTH / 2 - 100, 0))
