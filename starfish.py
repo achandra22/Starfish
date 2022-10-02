@@ -30,11 +30,7 @@ pygame.init()
 pygame.mixer.init()  # for sound
 pygame.mixer.music.load("game_music.mp3")
 pygame.mixer.music.play(-1)
-<<<<<<< HEAD
-pygame.mixer.music.set_volume(0.4)
-=======
-pygame.mixer.music.set_volume(.1)
->>>>>>> 8520e2912f4b77e1d361fef70d671203b891137b
+pygame.mixer.music.set_volume(0.1)
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
 pygame.display.set_caption("Starfish")
@@ -106,12 +102,14 @@ while not start:
         text2 = start_font.render("All the while cleaning up the seas!", True, (255, 255, 255))
         text3 = start_font.render("Press the U key to undo", True, (255, 255, 255))
         text4 = start_font.render("Press space to submit your expression", True, (255, 255, 255))
-        
+        text5 = start_font.render("To STARt press space!", True, (255, 255, 255))
+
         screen.blit(text, (WIDTH/2-350, 50))
         screen.blit(text1, (WIDTH/2-500, 130))
         screen.blit(text2, (WIDTH/2-320, 210))
         screen.blit(text3, (WIDTH/2-250, 290))
         screen.blit(text4, (WIDTH/2-350, 370))
+        screen.blit(text5, (WIDTH/2-250, 450))
         pygame.display.flip()
 
         for event in pygame.event.get():
