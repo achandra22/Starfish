@@ -44,7 +44,7 @@ background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 bg_rect = background.get_rect()
 
 
-goal_num = 5#random.randrange(2, 40)
+goal_num = random.randrange(2, 20)
 lives = 3
 
 ### sprites
