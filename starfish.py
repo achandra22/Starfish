@@ -43,7 +43,7 @@ background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 bg_rect = background.get_rect()
 
 
-goal_num = random.randrange(2, 40)
+goal_num = 5#random.randrange(2, 40)
 lives = 3
 
 ### sprites
@@ -176,12 +176,12 @@ while running:
     pygame.display.flip()
 
 
-font = pygame.font.Font("freesansbold.ttf", 70)
+font = pygame.font.SysFont("comicsansms", 72)
 
 hi = True
 
 starfish_happy = pygame.image.load("starfish_end.png")
-#starfish_sad = 
+starfish_sad = pygame.image.load("starfish_sad.png")
 middle = (WIDTH/2, HEIGHT/2)
 
 while hi:
@@ -197,15 +197,15 @@ while hi:
         screen.blit(background, bg_rect)
         screen.blit(starfish_happy, (WIDTH/2- 128, HEIGHT/2-128))
         text = font.render("You're a star!", True, (255, 255, 255))
-        screen.blit(text, (WIDTH/2-35, 0))
+        screen.blit(text, (WIDTH/2-200, 0))
         
     elif end_state == False :
         screen.fill(BLACK)
         screen.blit(background, bg_rect)
-        screen.blit(starfish_happy,(WIDTH/2- 128, HEIGHT/2-128))
+        screen.blit(starfish_sad,(WIDTH/2- 128, HEIGHT/2-128))
         
-        text = font.render('', True, (255, 255, 255))
-        screen.blit(text, middle)
+        text = font.render('Oh no!', True, (255, 255, 255))
+        screen.blit(text, (WIDTH/2-100, 0))
 
 
     pygame.display.flip()
