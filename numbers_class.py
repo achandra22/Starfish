@@ -19,7 +19,7 @@ class numbers(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
 
-        image = ["can.png", "plastic-bottle.png", "plastic.png"]
+        image = ["assets/can.png", "assets/plastic-bottle.png", "assets/plastic.png"]
 
         self.image = pygame.image.load(random.choice(image)).convert()
         self.image = pygame.transform.scale(self.image, (100, 100)).convert_alpha()

@@ -20,10 +20,9 @@ class Player(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
 
-        self.image = pygame.image.load("starfish.png").convert()
-        self.image = pygame.transform.scale(self.image, (64,64))
+        self.image = pygame.image.load("assets/starfish.png").convert()
+        self.image = pygame.transform.scale(self.image, (64, 64))
         self.image.set_colorkey(BLACK)
-
 
         self.rect = self.image.get_rect()
 
@@ -31,18 +30,17 @@ class Player(pygame.sprite.Sprite):
         self.rect.center = (WIDTH / 2, HEIGHT / 2)
 
         # speeds
-        self.speed = 5 #start at 5
-        
+        self.speed = 5  # start at 5
+
         # player qualities
 
         self.current = []
-        
-        self.sound = pygame.mixer.Sound('pop.wav')
 
-        
+        self.sound = pygame.mixer.Sound("assets/pop.wav")
+
     def Sound(self):
         self.sound.play()
-        
+
     def update(self):
 
         # updating position
@@ -74,5 +72,3 @@ class Player(pygame.sprite.Sprite):
             self.rect.top = 0
         if self.rect.bottom > HEIGHT:
             self.rect.bottom = HEIGHT
-
-        

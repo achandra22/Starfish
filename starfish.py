@@ -21,14 +21,14 @@ FPS = 30  # frames per second
 
 BLACK = (0, 0, 0)
 
-garbage = pygame.image.load("garbage.png")
+garbage = pygame.image.load("assets/garbage.png")
 pygame.display.set_icon(garbage)
 
 
 # initialize pygame and create window
 pygame.init()
 pygame.mixer.init()  # for sound
-pygame.mixer.music.load("game_music.mp3")
+pygame.mixer.music.load("assets/game_music.mp3")
 pygame.mixer.music.play(-1)
 pygame.mixer.music.set_volume(0.1)
 
@@ -38,7 +38,7 @@ clock = pygame.time.Clock()
 
 ### bg
 
-background = pygame.image.load("bg.jpg")
+background = pygame.image.load("assets/bg.jpg")
 background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 bg_rect = background.get_rect()
 
@@ -59,9 +59,9 @@ goal = Goal(str(goal_num))
 all_sprites.add(goal)
 
 all_signs = pygame.sprite.Group()
-sign_plus = arithmatics_class.Arithmatics("+", 450, 650, "plus.png")
+sign_plus = arithmatics_class.Arithmatics("+", 450, 650, "assets/plus.png")
 all_signs.add(sign_plus)
-sign_sub = arithmatics_class.Arithmatics("-", 550, 650, "minus.png")
+sign_sub = arithmatics_class.Arithmatics("-", 550, 650, "assets/minus.png")
 all_signs.add(sign_sub)
 
 numbers = pygame.sprite.Group()
@@ -152,7 +152,7 @@ while running:
     all_lives = pygame.sprite.Group()
     current_x = 1000
     for _ in range(lives):
-        all_lives.add(LivesClass(current_x, "heart.png"))
+        all_lives.add(LivesClass(current_x, "assets/heart.png"))
         current_x -= 80
 
     ######## Update
@@ -199,13 +199,13 @@ while running:
 
 hi = True
 
-starfish_happy = pygame.image.load("starfish_end.png")
-bg_happy = pygame.image.load("bg_clean.jpg")
+starfish_happy = pygame.image.load("assets/starfish_end.png")
+bg_happy = pygame.image.load("assets/bg_clean.jpg")
 bg_happy = pygame.transform.scale(bg_happy, (WIDTH, HEIGHT))
 bg_happy_rect = bg_happy.get_rect()
 
-starfish_sad = pygame.image.load("starfish_sad.png")
-bg_sad = pygame.image.load("bg_dirty.jpg")
+starfish_sad = pygame.image.load("assets/starfish_sad.png")
+bg_sad = pygame.image.load("assets/bg_dirty.jpg")
 bg_sad = pygame.transform.scale(bg_sad, (WIDTH, HEIGHT))
 bg_sad_rect = bg_sad.get_rect()
 
